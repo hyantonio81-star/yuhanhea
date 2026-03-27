@@ -1,0 +1,20 @@
+{
+  "name": "yuhan-mart",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w yuhan-suite-api\" \"npm run dev -w web\"",
+    "build": "npm run build -w yuhan-suite-api && npm run build -w web",
+    "verify": "npm run verify -w web && npm run verify:contract",
+    "verify:contract": "node scripts/verify-contract.mjs",
+    "smoke:bff": "node scripts/smoke-bff.mjs",
+    "smoke:e2e": "node scripts/e2e-integration-local.mjs",
+    "webhook:stub": "node scripts/webhook-stub.mjs",
+    "export:audit": "npm run export-audit -w yuhan-suite-api",
+    "security:check": "node scripts/security-check.mjs",
+    "e2e": "npm run e2e -w web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

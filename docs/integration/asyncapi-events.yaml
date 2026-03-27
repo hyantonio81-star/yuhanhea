@@ -1,0 +1,126 @@
+asyncapi: 3.0.0
+info:
+  title: Yuhan Suite Integration Events
+  version: 0.1.0
+defaultContentType: application/json
+channels:
+  suite.events:
+    address: integration.events
+    messages:
+      CampaignBriefPublished:
+        $ref: '#/components/messages/CampaignBriefPublished'
+      VideoJobCompleted:
+        $ref: '#/components/messages/VideoJobCompleted'
+      LocalMarketInsightUpdated:
+        $ref: '#/components/messages/LocalMarketInsightUpdated'
+      MarketingSpendCommitted:
+        $ref: '#/components/messages/MarketingSpendCommitted'
+      ReminderScheduled:
+        $ref: '#/components/messages/ReminderScheduled'
+      ReminderFired:
+        $ref: '#/components/messages/ReminderFired'
+      PayoutApproved:
+        $ref: '#/components/messages/PayoutApproved'
+components:
+  messages:
+    CampaignBriefPublished:
+      payload:
+        type: object
+        required: [event_id, tenant_id, campaign_id, brief_json]
+        properties:
+          event_id:
+            type: string
+          tenant_id:
+            type: string
+          campaign_id:
+            type: string
+          brief_json:
+            type: object
+    VideoJobCompleted:
+      payload:
+        type: object
+        required: [event_id, tenant_id, video_job_id, campaign_id, creative_asset_id]
+        properties:
+          event_id:
+            type: string
+          tenant_id:
+            type: string
+          video_job_id:
+            type: string
+          campaign_id:
+            type: string
+          creative_asset_id:
+            type: string
+    LocalMarketInsightUpdated:
+      payload:
+        type: object
+        required: [event_id, tenant_id, local_market_id, summary]
+        properties:
+          event_id:
+            type: string
+          tenant_id:
+            type: string
+          local_market_id:
+            type: string
+          summary:
+            type: string
+    MarketingSpendCommitted:
+      payload:
+        type: object
+        required: [event_id, tenant_id, period, amount_cents, spend_category]
+        properties:
+          event_id:
+            type: string
+          tenant_id:
+            type: string
+          period:
+            type: string
+          amount_cents:
+            type: integer
+          spend_category:
+            type: string
+          campaign_id:
+            type: string
+          department_code:
+            type: string
+    ReminderScheduled:
+      payload:
+        type: object
+        required: [event_id, tenant_id, contact_id, local_market_id, fire_at, channel, consent_token_ref]
+        properties:
+          event_id: { type: string }
+          tenant_id: { type: string }
+          contact_id: { type: string }
+          local_market_id: { type: string }
+          fire_at: { type: string }
+          channel: { type: string, enum: [push, sms, email] }
+          consent_token_ref: { type: string }
+    ReminderFired:
+      payload:
+        type: object
+        required: [event_id, tenant_id, reminder_id, contact_id, delivered_channel]
+        properties:
+          event_id: { type: string }
+          tenant_id: { type: string }
+          reminder_id: { type: string }
+          contact_id: { type: string }
+          delivered_channel: { type: string, enum: [push, sms, email] }
+    PayoutApproved:
+      payload:
+        type: object
+        required: [event_id, tenant_id, payout_batch_id, currency, total_amount_cents, line_items]
+        properties:
+          event_id: { type: string }
+          tenant_id: { type: string }
+          payout_batch_id: { type: string }
+          currency: { type: string }
+          total_amount_cents: { type: integer }
+          line_items:
+            type: array
+            items:
+              type: object
+              required: [payee_ref, amount_cents, coa_code]
+              properties:
+                payee_ref: { type: string }
+                amount_cents: { type: integer }
+                coa_code: { type: string }

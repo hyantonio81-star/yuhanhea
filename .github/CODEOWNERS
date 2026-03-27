@@ -1,0 +1,4 @@
+# Yuhan Suite 통합 — GitHub 팀 또는 사용자 핸들을 지정하세요.
+# 예: /docs/integration/ @my-org/integration-team
+# 예: /apps/api/ @my-org/backend-team
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners

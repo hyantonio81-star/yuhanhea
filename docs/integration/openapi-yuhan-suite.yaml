@@ -1,0 +1,481 @@
+openapi: 3.1.0
+info:
+  title: Yuhan Suite Integration API (BFF draft)
+  version: 0.4.2
+  description: Yuaimarketing 허브 기준 연동. 실제 배포 시 게이트웨이에서 라우팅.
+servers:
+  - url: https://api.example.com/api/v1
+paths:
+  /campaigns/{campaignId}/briefs:
+    post:
+      summary: Publish campaign brief (triggers CampaignBriefPublished)
+      operationId: publishCampaignBrief
+      parameters:
+        - name: campaignId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignBrief'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAccepted'
+  /video-jobs:
+    post:
+      summary: Create video job (Mart)
+      operationId: createVideoJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VideoJobCreate'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoJob'
+  /video-jobs/{videoJobId}:
+    patch:
+      summary: Update video job status (e.g. completed → VideoJobCompleted)
+      operationId: patchVideoJob
+      parameters:
+        - name: videoJobId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tenant_id:
+                  type: string
+                campaign_id:
+                  type: string
+                status:
+                  type: string
+                  enum: [queued, scripting, rendering, qa, published, failed]
+                creative_asset_id:
+                  type: string
+      responses:
+        '200':
+          description: OK
+  /events:
+    get:
+      summary: Outbox event log (SQLite; poll with since_id)
+      operationId: listSuiteEvents
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+        - name: since_id
+          in: query
+          description: Return rows with id greater than this (ASC order)
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+  /audit:
+    get:
+      summary: Recent audit entries (SQLite + JSONL mirror)
+      operationId: listAudit
+      parameters:
+        - name: tenant_id
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: OK
+  /crm/local-markets/{id}/insights:
+    get:
+      summary: Local market strategy snapshot
+      operationId: getLocalMarketInsights
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  local_market_id:
+                    type: string
+                  summary:
+                    type: string
+  /crm/reminders:
+    post:
+      summary: Schedule opt-in reminder (ReminderScheduled)
+      operationId: scheduleReminder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReminderCreate'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Missing consent or fields
+        '429':
+          description: Cooldown
+  /assistant/sessions:
+    post:
+      summary: AI assistant session (Gemini tools preferred; OpenAI or heuristic fallback)
+      operationId: assistantSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssistantSession'
+      responses:
+        '200':
+          description: Reply + tool_calls + audit_id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssistantSessionResponse'
+        '429':
+          description: Rate limit per tenant and user
+  /assistant/tools:
+    get:
+      summary: Allowed tool names (discovery)
+      operationId: listAssistantTools
+      responses:
+        '200':
+          description: Tool names
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tools:
+                    type: array
+                    items: { type: string }
+  /assistant/tool-approvals:
+    get:
+      summary: AI 고위험 도구 승인 대기 목록
+      operationId: listAssistantToolApprovals
+      parameters:
+        - name: tenant_id
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            default: pending
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: OK
+  /assistant/tool-approvals/{id}/approve:
+    post:
+      summary: 승인 후 아웃박스 반영 (X-BFF-Admin-Key)
+      operationId: approveAssistantTool
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Applied
+        '401':
+          description: Invalid admin key
+        '404':
+          description: Admin disabled or not found
+  /assistant/tool-approvals/{id}/reject:
+    post:
+      summary: 거절
+      operationId: rejectAssistantTool
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                note:
+                  type: string
+      responses:
+        '200':
+          description: Rejected
+        '401':
+          description: Invalid admin key
+        '404':
+          description: Admin disabled
+  /erp/finance/spend-commit:
+    post:
+      summary: Commit marketing spend to ERP bridge
+      operationId: commitSpend
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpendCommit'
+      responses:
+        '202':
+          description: Accepted
+  /erp/finance/payouts:
+    post:
+      summary: AP batch (PayoutApproved)
+      operationId: commitPayout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayoutCreate'
+      responses:
+        '202':
+          description: Accepted
+  /security/status:
+    get:
+      summary: 비민감 보안·연동 상태 요약 (웹 허브 피드용; BFF_API_KEY 등 기존 인증 규칙 동일)
+      operationId: getSecurityStatus
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityStatus'
+  /security/scan-upload:
+    post:
+      summary: 업로드 파일 스캔 (스텁 — 엔진 미연동 시 합성 허용)
+      operationId: scanUpload
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                tenant_id:
+                  type: string
+      responses:
+        '200':
+          description: Stub accept (no engine)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanUploadResult'
+        '400':
+          description: Missing or invalid multipart body
+  /admin/outbox/{id}/retry:
+    post:
+      summary: Reset failed outbox row to pending (DLQ manual replay)
+      description: Requires `BFF_ADMIN_KEY` on the server and header `X-BFF-Admin-Key`. Returns 404 when admin is disabled.
+      operationId: replayOutboxRow
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Row reset to pending
+        '400':
+          description: Row not failed or invalid id
+        '401':
+          description: Invalid admin key
+        '404':
+          description: Row not found or admin disabled
+        '503':
+          description: SQLite disabled
+components:
+  schemas:
+    SecurityStatus:
+      type: object
+      required: [service, security, generated_at]
+      properties:
+        service:
+          type: string
+        security:
+          type: object
+          properties:
+            supply_chain_layer:
+              type: string
+            upload_scan_engine:
+              type: string
+            upload_scan_note:
+              type: string
+            api_spec_version:
+              type: string
+        generated_at:
+          type: string
+          format: date-time
+    ScanUploadResult:
+      type: object
+      required: [ok, scan_status, engine, received_bytes, filename, message]
+      properties:
+        ok:
+          type: boolean
+        scan_status:
+          type: string
+        engine:
+          type: string
+        received_bytes:
+          type: integer
+        filename:
+          type: string
+        message:
+          type: string
+    CampaignBrief:
+      type: object
+      required: [tenant_id, campaign_id, brief_json]
+      properties:
+        tenant_id:
+          type: string
+        campaign_id:
+          type: string
+        brief_json:
+          type: object
+          additionalProperties: true
+    VideoJobCreate:
+      type: object
+      required: [tenant_id, campaign_id]
+      properties:
+        tenant_id:
+          type: string
+        campaign_id:
+          type: string
+        brief_json:
+          type: object
+    VideoJob:
+      type: object
+      properties:
+        video_job_id:
+          type: string
+        status:
+          type: string
+        campaign_id:
+          type: string
+    AsyncAccepted:
+      type: object
+      properties:
+        request_id:
+          type: string
+    SpendCommit:
+      type: object
+      required: [tenant_id, period, amount_cents, spend_category]
+      properties:
+        tenant_id:
+          type: string
+        period:
+          type: string
+          example: '2026-03'
+        amount_cents:
+          type: integer
+        spend_category:
+          type: string
+          enum: [ad_spend, production, influencer, tooling]
+        campaign_id:
+          type: string
+        department_code:
+          type: string
+    ReminderCreate:
+      type: object
+      required: [tenant_id, contact_id, local_market_id, fire_at, channel, consent_token_ref]
+      properties:
+        tenant_id: { type: string }
+        contact_id: { type: string }
+        local_market_id: { type: string }
+        fire_at: { type: string, format: date-time }
+        channel: { type: string, enum: [push, sms, email] }
+        consent_token_ref: { type: string }
+    AssistantSession:
+      type: object
+      required: [tenant_id, messages]
+      properties:
+        trace_id: { type: string }
+        tenant_id: { type: string }
+        user_id: { type: string }
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              role: { type: string }
+              content: { type: string }
+    AssistantSessionResponse:
+      type: object
+      required: [trace_id, audit_id, reply, tool_calls]
+      properties:
+        trace_id: { type: string }
+        audit_id: { type: string }
+        reply: { type: string }
+        mode:
+          type: string
+          enum: [gemini, openai, heuristic]
+        tool_calls:
+          type: array
+          items:
+            type: object
+            required: [tool, approval_required]
+            properties:
+              tool: { type: string }
+              approval_required: { type: boolean }
+    PayoutCreate:
+      type: object
+      required: [tenant_id, payout_batch_id, currency, total_amount_cents, line_items]
+      properties:
+        tenant_id: { type: string }
+        payout_batch_id: { type: string }
+        currency: { type: string }
+        total_amount_cents: { type: integer }
+        line_items:
+          type: array
+          items:
+            type: object
+            required: [payee_ref, amount_cents, coa_code]
+            properties:
+              payee_ref: { type: string }
+              amount_cents: { type: integer }
+              coa_code: { type: string }

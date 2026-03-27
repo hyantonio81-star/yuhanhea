@@ -1,0 +1,22 @@
+{
+  "description": "BFF apps/api 라우트 (prefix /api/v1). OpenAPI paths와 1:1 대응. 변경 시 verify:contract 동기화.",
+  "routes": [
+    { "method": "GET", "path": "/audit" },
+    { "method": "GET", "path": "/events" },
+    { "method": "GET", "path": "/crm/local-markets/:id/insights" },
+    { "method": "POST", "path": "/crm/reminders" },
+    { "method": "POST", "path": "/assistant/sessions" },
+    { "method": "GET", "path": "/assistant/tools" },
+    { "method": "GET", "path": "/assistant/tool-approvals" },
+    { "method": "POST", "path": "/assistant/tool-approvals/:id/approve" },
+    { "method": "POST", "path": "/assistant/tool-approvals/:id/reject" },
+    { "method": "POST", "path": "/campaigns/:campaignId/briefs" },
+    { "method": "POST", "path": "/video-jobs" },
+    { "method": "PATCH", "path": "/video-jobs/:videoJobId" },
+    { "method": "POST", "path": "/erp/finance/spend-commit" },
+    { "method": "POST", "path": "/erp/finance/payouts" },
+    { "method": "GET", "path": "/security/status" },
+    { "method": "POST", "path": "/security/scan-upload" },
+    { "method": "POST", "path": "/admin/outbox/:id/retry" }
+  ]
+}

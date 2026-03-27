@@ -1,0 +1,17 @@
+node_modules/
+dist/
+
+# 로컬 BFF SQLite (개발 데이터; 커밋 금지)
+/data/
+.env
+.env.*
+!.env.example
+*.local
+.DS_Store
+Thumbs.db
+
+# Stitch export (large HTML/PNG reference; not required for build)
+/stitch_gesti_n_de_redes */
+**/tsconfig.tsbuildinfo
+apps/web/test-results/
+playwright-report/
