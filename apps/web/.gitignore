@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+# dist — Vercel이 빌드 산출물 경로를 .gitignore로 배포에서 제외할 수 있어 여기서는 무시하지 않음. `dist/`는 커밋하지 마세요.
 dist-ssr
 *.local
 

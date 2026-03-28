@@ -18,9 +18,10 @@
 ## 1. Vercel 프로젝트 연결
 
 1. [Vercel Dashboard](https://vercel.com/dashboard) → **Add New… → Project** → GitHub에서 `yuhanhea` 선택.
-2. **Root Directory**  
+2. **Root Directory** (여기 틀리면 **404·빈 배포**가 납니다)  
+   - **`apps/web/dist` 는 절대 넣지 마세요.** (산출 폴더를 Root로 잡는 오설정입니다. `npx vercel pull`로 받은 메타와 다르면 **대시보드 Root Directory**를 기준으로 맞춥니다.)  
    - **권장:** 비워 두거나 **`.`** (저장소 루트). 루트의 [`vercel.json`](../../vercel.json)이 `npm run build -w web`과 `apps/web/dist`를 사용합니다.  
-   - **대안:** `apps/web`만 쓸 경우 Root를 `apps/web`로 두고, Framework **Vite**, Output **dist**, Build `npm run build` — 이 경우 루트 `vercel.json`은 무시되고 [`apps/web/vercel.json`](../../apps/web/vercel.json)이 적용됩니다.
+   - **대안:** Root를 **`apps/web`**만 두고, Framework **Vite**, Output **`dist`**, Build **`npm run build`** — 이 경우 루트 `vercel.json`은 무시되고 [`apps/web/vercel.json`](../../apps/web/vercel.json)이 적용됩니다.
 3. **Settings → General → Framework Settings**  
    - **Output Directory**에는 **폴더 경로만** 넣습니다. `dist, npm run build`처럼 빌드 명령을 붙이면 안 됩니다(존재하지 않는 디렉터리로 인식되어 404·빈 배포가 납니다).  
    - Root가 **`.`**이면 Output은 **`apps/web/dist`**. Root가 **`apps/web`**이면 Output은 **`dist`**만.  
@@ -66,7 +67,12 @@
 - [`apps/web/vercel.json`](../../apps/web/vercel.json) — SPA 폴백  
 - [`vercel.json`](../../vercel.json) — 모노레포 루트 배포용
 
-## 6. 빌드 실패: `Cannot find module '@rolldown/binding-linux-x64-gnu'`
+## 6. 빌드는 성공하는데 `No Output Directory named "dist" found` / 프로덕션 404
+
+1. **Root Directory가 `apps/web/dist`로 잘못 설정된 경우** — 대시보드 **Settings → General → Root Directory**를 **`apps/web`** 또는 **`.`**으로 바꿉니다. (산출물 경로를 Root로 넣으면 빌드 로그는 나와도 배포 단계에서 `dist`를 못 찾거나 빈 사이트가 됩니다.)  
+2. **`.gitignore`와 산출물** — Vercel은 배포 파일을 모을 때 **`.gitignore`에 걸린 경로를 산출물에서도 제외**할 수 있습니다. 루트에 전역 `dist/`만 두지 않도록 조정해 두었습니다. **`apps/web/dist`는 Git에 커밋하지 마세요.**
+
+## 7. 빌드 실패: `Cannot find module '@rolldown/binding-linux-x64-gnu'`
 
 Vite **8**은 Rolldown과 Linux용 **optional** 네이티브 패키지에 의존합니다. Vercel의 `npm ci` 환경에서 optional 의존성이 빠지는 경우가 있어(로그에 언급되는 npm 이슈) 빌드가 실패할 수 있습니다.
 

@@ -1,5 +1,7 @@
 node_modules/
-dist/
+
+# 빌드 산출물 — apps/web/dist 는 Vercel이 .gitignore로 배포물에서 제외하므로 여기 적지 않음(실수로 커밋하지 말 것).
+apps/api/dist/
 
 # 로컬 BFF SQLite (개발 데이터; 커밋 금지)
 /data/
