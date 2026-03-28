@@ -26,7 +26,9 @@ flowchart TB
 
 ## Vercel (웹)
 
-1. Root Directory: `apps/web` (또는 모노레포 루트에서 `cd apps/web && npm run build`로 `dist` 지정).
+**환경 변수·Root Directory 상세:** [VERCEL_ENV_SETUP.md](./VERCEL_ENV_SETUP.md).
+
+1. Root Directory: 저장소 **루트** 권장(루트 [`vercel.json`](../../vercel.json) 사용) 또는 `apps/web`만 ([`apps/web/vercel.json`](../../apps/web/vercel.json)).
 2. Build: `npm ci && npm run build` (워크스페이스면 루트에서 설치 후 `-w web` 빌드).
 3. Output: `apps/web/dist`.
 4. 환경 변수 (Production / Preview 구분 권장):

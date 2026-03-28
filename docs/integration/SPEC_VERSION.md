@@ -2,7 +2,7 @@
 
 | 필드 | 값 |
 |------|-----|
-| **integration_spec** | `0.4.4` |
+| **integration_spec** | `0.4.5` |
 | **대상** | [openapi-yuhan-suite.yaml](./openapi-yuhan-suite.yaml), [events-catalog.md](./events-catalog.md), [asyncapi-events.yaml](./asyncapi-events.yaml) (동기화 단위) |
 | **BFF 참조** | [apps/api](../../apps/api) (`package.json` version과 독립) |
 
