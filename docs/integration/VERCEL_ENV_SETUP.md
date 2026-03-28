@@ -2,6 +2,8 @@
 
 저장소: [hyantonio81-star/yuhanhea](https://github.com/hyantonio81-star/yuhanhea) 기준. SPA는 `apps/web`, BFF는 **별도 호스팅**입니다 ([DEPLOY_SUPABASE_VERCEL.md](./DEPLOY_SUPABASE_VERCEL.md)).
 
+**Vercel Project ID (웹·`yuhanhea-web` 등):** `prj_LIizNkl3vRlthA0ifGZyJlfsYIXM` — 팀/프로젝트가 여러 개일 때 대시보드·지원 요청에서 구분용으로 사용합니다. 토큰·시크릿이 아닙니다.
+
 ## 1. Vercel 프로젝트 연결
 
 1. [Vercel Dashboard](https://vercel.com/dashboard) → **Add New… → Project** → GitHub에서 `yuhanhea` 선택.
