@@ -27,6 +27,7 @@
 | [P3_SCALE_AND_OPERATIONS.md](./P3_SCALE_AND_OPERATIONS.md) | P3 규모·멀티 리전·푸시 |
 | [DEPLOY_SUPABASE_VERCEL.md](./DEPLOY_SUPABASE_VERCEL.md) | Supabase · Vercel 배포 토폴로지 |
 | [VERCEL_ENV_SETUP.md](./VERCEL_ENV_SETUP.md) | Vercel 대시보드·환경 변수·Root Directory |
+| [APP_HEALTH_AND_ROUTES.md](./APP_HEALTH_AND_ROUTES.md) | 폴더·CI 검증 매트릭스·P0/P1/P2 라우트·Stitch 청크 |
 | [SUPABASE_KEYS_HANDOFF.md](./SUPABASE_KEYS_HANDOFF.md) | Yuaimarketing·Supabase 키/자료 누구에게·어떻게 넘길지 |
 | [POSTGRES_MIGRATION_BACKLOG.md](./POSTGRES_MIGRATION_BACKLOG.md) | BFF SQLite→Postgres 이전 단계(백로그) |
 | [SECURITY_IMPROVEMENT_PLAN.md](./SECURITY_IMPROVEMENT_PLAN.md) | Supabase/Vercel 전제 보안 개선 단계 |

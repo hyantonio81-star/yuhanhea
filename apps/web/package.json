@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "verify": "node scripts/verify-i18n-nav.mjs && node scripts/verify-router-nav.mjs",
+    "verify": "node scripts/verify-i18n-nav.mjs && node scripts/verify-router-nav.mjs && node scripts/verify-stitch-exports.mjs",
     "preview": "vite preview",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "e2e:crawl": "playwright test e2e/route-crawl.spec.ts",
+    "e2e:p0": "playwright test e2e/p0-nav-core.spec.ts e2e/smoke.spec.ts"
   },
   "dependencies": {
     "i18next": "^25.10.10",

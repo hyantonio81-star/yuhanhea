@@ -1,232 +1,236 @@
 import { lazy, type ComponentType } from 'react'
 
-function stitchLazy(name: string) {
+function stitchLazyFrom(
+  name: string,
+  importer: () => Promise<Record<string, ComponentType<object>>>,
+) {
   return lazy(() =>
-    import('../../pages/stitch/ExtraPages').then((m) => {
+    importer().then((m) => {
       const C = (m as Record<string, ComponentType<object>>)[name]
-      if (!C) throw new Error(`ExtraPages missing export: ${name}`)
+      if (!C) throw new Error(`Stitch chunk missing export: ${name}`)
       return { default: C }
     }),
   )
 }
-export const AiCreativeAnalysisPage = stitchLazy('AiCreativeAnalysisPage')
 
-export const AiMediationRulesPage = stitchLazy('AiMediationRulesPage')
+export const AiCreativeAnalysisPage = stitchLazyFrom('AiCreativeAnalysisPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const AiProductTrendsDeployedPage = stitchLazy('AiProductTrendsDeployedPage')
+export const AiMediationRulesPage = stitchLazyFrom('AiMediationRulesPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const AiStorytellerAssistantPage = stitchLazy('AiStorytellerAssistantPage')
+export const AiProductTrendsDeployedPage = stitchLazyFrom('AiProductTrendsDeployedPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const AiUploadAgentPage = stitchLazy('AiUploadAgentPage')
+export const AiStorytellerAssistantPage = stitchLazyFrom('AiStorytellerAssistantPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const AlibabaTrendReportPage = stitchLazy('AlibabaTrendReportPage')
+export const AiUploadAgentPage = stitchLazyFrom('AiUploadAgentPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const AmazonAffiliateHubTrendReportPage = stitchLazy('AmazonAffiliateHubTrendReportPage')
+export const AlibabaTrendReportPage = stitchLazyFrom('AlibabaTrendReportPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const AnaliticaDetalladaPage = stitchLazy('AnaliticaDetalladaPage')
+export const AmazonAffiliateHubTrendReportPage = stitchLazyFrom('AmazonAffiliateHubTrendReportPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const AudienceBehaviorForecastingPage = stitchLazy('AudienceBehaviorForecastingPage')
+export const AnaliticaDetalladaPage = stitchLazyFrom('AnaliticaDetalladaPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const AudienceSpecificRuleTargetingPage = stitchLazy('AudienceSpecificRuleTargetingPage')
+export const AudienceBehaviorForecastingPage = stitchLazyFrom('AudienceBehaviorForecastingPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const AuditSimulationDashboardPage = stitchLazy('AuditSimulationDashboardPage')
+export const AudienceSpecificRuleTargetingPage = stitchLazyFrom('AudienceSpecificRuleTargetingPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const AutomatedBotMitigationRulesPage = stitchLazy('AutomatedBotMitigationRulesPage')
+export const AuditSimulationDashboardPage = stitchLazyFrom('AuditSimulationDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const AutomatedBudgetAdjustmentsPage = stitchLazy('AutomatedBudgetAdjustmentsPage')
+export const AutomatedBotMitigationRulesPage = stitchLazyFrom('AutomatedBotMitigationRulesPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const AutomatedContractRenewalRulesPage = stitchLazy('AutomatedContractRenewalRulesPage')
+export const AutomatedBudgetAdjustmentsPage = stitchLazyFrom('AutomatedBudgetAdjustmentsPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const AutomatedCounterCampaignsPage = stitchLazy('AutomatedCounterCampaignsPage')
+export const AutomatedContractRenewalRulesPage = stitchLazyFrom('AutomatedContractRenewalRulesPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const AutomatedDataReplayEnginePage = stitchLazy('AutomatedDataReplayEnginePage')
+export const AutomatedCounterCampaignsPage = stitchLazyFrom('AutomatedCounterCampaignsPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const AutomatedDisputeFilingPage = stitchLazy('AutomatedDisputeFilingPage')
+export const AutomatedDataReplayEnginePage = stitchLazyFrom('AutomatedDataReplayEnginePage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const AutomatedDisputeResolutionDashboardPage = stitchLazy('AutomatedDisputeResolutionDashboardPage')
+export const AutomatedDisputeFilingPage = stitchLazyFrom('AutomatedDisputeFilingPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const AutomatedMediatorPerformanceReportPage = stitchLazy('AutomatedMediatorPerformanceReportPage')
+export const AutomatedDisputeResolutionDashboardPage = stitchLazyFrom('AutomatedDisputeResolutionDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const AutomatedPolicyPatchingDashboardPage = stitchLazy('AutomatedPolicyPatchingDashboardPage')
+export const AutomatedMediatorPerformanceReportPage = stitchLazyFrom('AutomatedMediatorPerformanceReportPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const AutomatedPolicyUpdateAlertsPage = stitchLazy('AutomatedPolicyUpdateAlertsPage')
+export const AutomatedPolicyPatchingDashboardPage = stitchLazyFrom('AutomatedPolicyPatchingDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const AutomatedRegulatoryReportingDashboardPage = stitchLazy('AutomatedRegulatoryReportingDashboardPage')
+export const AutomatedPolicyUpdateAlertsPage = stitchLazyFrom('AutomatedPolicyUpdateAlertsPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const AutomatedReinvestmentRulesPage = stitchLazy('AutomatedReinvestmentRulesPage')
+export const AutomatedRegulatoryReportingDashboardPage = stitchLazyFrom('AutomatedRegulatoryReportingDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const AutomatedRemediationWorkflowsDashboardPage = stitchLazy('AutomatedRemediationWorkflowsDashboardPage')
+export const AutomatedReinvestmentRulesPage = stitchLazyFrom('AutomatedReinvestmentRulesPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const AutomatedResolutionWorkflowsPage = stitchLazy('AutomatedResolutionWorkflowsPage')
+export const AutomatedRemediationWorkflowsDashboardPage = stitchLazyFrom('AutomatedRemediationWorkflowsDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const AutomatedRetargetingWorkflowsPage = stitchLazy('AutomatedRetargetingWorkflowsPage')
+export const AutomatedResolutionWorkflowsPage = stitchLazyFrom('AutomatedResolutionWorkflowsPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const AutomatedThreatHuntingAgentsDashboardPage = stitchLazy('AutomatedThreatHuntingAgentsDashboardPage')
+export const AutomatedRetargetingWorkflowsPage = stitchLazyFrom('AutomatedRetargetingWorkflowsPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const AutomatedWarningNotificationsPage = stitchLazy('AutomatedWarningNotificationsPage')
+export const AutomatedThreatHuntingAgentsDashboardPage = stitchLazyFrom('AutomatedThreatHuntingAgentsDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const AutomatizadorDeIaPage = stitchLazy('AutomatizadorDeIaPage')
+export const AutomatedWarningNotificationsPage = stitchLazyFrom('AutomatedWarningNotificationsPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const AvatarCreatorTtsPage = stitchLazy('AvatarCreatorTtsPage')
+export const AutomatizadorDeIaPage = stitchLazyFrom('AutomatizadorDeIaPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const BackgroundMusicCreatorPage = stitchLazy('BackgroundMusicCreatorPage')
+export const AvatarCreatorTtsPage = stitchLazyFrom('AvatarCreatorTtsPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const AvatarCreatorTimelinePage = stitchLazy('AvatarCreatorTimelinePage')
+export const BackgroundMusicCreatorPage = stitchLazyFrom('BackgroundMusicCreatorPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const BudgetForecastingNextMonthPage = stitchLazy('BudgetForecastingNextMonthPage')
+export const AvatarCreatorTimelinePage = stitchLazyFrom('AvatarCreatorTimelinePage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const ChainOfCustodyEvidenceVaultPage = stitchLazy('ChainOfCustodyEvidenceVaultPage')
+export const BudgetForecastingNextMonthPage = stitchLazyFrom('BudgetForecastingNextMonthPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const ChannelPerformanceDetailedReportPage = stitchLazy('ChannelPerformanceDetailedReportPage')
+export const ChainOfCustodyEvidenceVaultPage = stitchLazyFrom('ChainOfCustodyEvidenceVaultPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const CharacterCreatorMultiStylePage = stitchLazy('CharacterCreatorMultiStylePage')
+export const ChannelPerformanceDetailedReportPage = stitchLazyFrom('ChannelPerformanceDetailedReportPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const CompetitorActivityTrackingPage = stitchLazy('CompetitorActivityTrackingPage')
+export const CharacterCreatorMultiStylePage = stitchLazyFrom('CharacterCreatorMultiStylePage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const CompetitorAdCreativePreviewsPage = stitchLazy('CompetitorAdCreativePreviewsPage')
+export const CompetitorActivityTrackingPage = stitchLazyFrom('CompetitorActivityTrackingPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const ComplianceAuditLogsPage = stitchLazy('ComplianceAuditLogsPage')
+export const CompetitorAdCreativePreviewsPage = stitchLazyFrom('CompetitorAdCreativePreviewsPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const ContractPerformanceMetricsDashboard1Page = stitchLazy('ContractPerformanceMetricsDashboard1Page')
+export const ComplianceAuditLogsPage = stitchLazyFrom('ComplianceAuditLogsPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const ContractPerformanceMetricsDashboard2Page = stitchLazy('ContractPerformanceMetricsDashboard2Page')
+export const ContractPerformanceMetricsDashboard1Page = stitchLazyFrom('ContractPerformanceMetricsDashboard1Page', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const DashboardPrincipalPage = stitchLazy('DashboardPrincipalPage')
+export const ContractPerformanceMetricsDashboard2Page = stitchLazyFrom('ContractPerformanceMetricsDashboard2Page', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const DashboardPersonalizadoPage = stitchLazy('DashboardPersonalizadoPage')
+export const DashboardPrincipalPage = stitchLazyFrom('DashboardPrincipalPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const DisputeEvidenceAnalyticsPage = stitchLazy('DisputeEvidenceAnalyticsPage')
+export const DashboardPersonalizadoPage = stitchLazyFrom('DashboardPersonalizadoPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const DisputePolicyLibraryPage = stitchLazy('DisputePolicyLibraryPage')
+export const DisputeEvidenceAnalyticsPage = stitchLazyFrom('DisputeEvidenceAnalyticsPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const DisputeResolutionAnalyticsDashboardPage = stitchLazy('DisputeResolutionAnalyticsDashboardPage')
+export const DisputePolicyLibraryPage = stitchLazyFrom('DisputePolicyLibraryPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const EmailTemplateEditorPage = stitchLazy('EmailTemplateEditorPage')
+export const DisputeResolutionAnalyticsDashboardPage = stitchLazyFrom('DisputeResolutionAnalyticsDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const FacebookPerformanceIntelligenceReportPage = stitchLazy('FacebookPerformanceIntelligenceReportPage')
+export const EmailTemplateEditorPage = stitchLazyFrom('EmailTemplateEditorPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const ForensicEvidenceRecoveryDashboardPage = stitchLazy('ForensicEvidenceRecoveryDashboardPage')
+export const FacebookPerformanceIntelligenceReportPage = stitchLazyFrom('FacebookPerformanceIntelligenceReportPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const ForensicSecurityAuditDashboardPage = stitchLazy('ForensicSecurityAuditDashboardPage')
+export const ForensicEvidenceRecoveryDashboardPage = stitchLazyFrom('ForensicEvidenceRecoveryDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const GestionRedesPage = stitchLazy('GestionRedesPage')
+export const ForensicSecurityAuditDashboardPage = stitchLazyFrom('ForensicSecurityAuditDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const GlobalComplianceSimulationDashboardPage = stitchLazy('GlobalComplianceSimulationDashboardPage')
+export const GestionRedesPage = stitchLazyFrom('GestionRedesPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const GlobalPerformanceReportsPage = stitchLazy('GlobalPerformanceReportsPage')
+export const GlobalComplianceSimulationDashboardPage = stitchLazyFrom('GlobalComplianceSimulationDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const GlobalSecurityPolicyDashboardPage = stitchLazy('GlobalSecurityPolicyDashboardPage')
+export const GlobalPerformanceReportsPage = stitchLazyFrom('GlobalPerformanceReportsPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const GlobalViralHeatmapPage = stitchLazy('GlobalViralHeatmapPage')
+export const GlobalSecurityPolicyDashboardPage = stitchLazyFrom('GlobalSecurityPolicyDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const InfluencerSentimentAnalysisPage = stitchLazy('InfluencerSentimentAnalysisPage')
+export const GlobalViralHeatmapPage = stitchLazyFrom('GlobalViralHeatmapPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const LegalApprovalWorkflowPage = stitchLazy('LegalApprovalWorkflowPage')
+export const InfluencerSentimentAnalysisPage = stitchLazyFrom('InfluencerSentimentAnalysisPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const LegalApprovalAutomatedRemindersPage = stitchLazy('LegalApprovalAutomatedRemindersPage')
+export const LegalApprovalWorkflowPage = stitchLazyFrom('LegalApprovalWorkflowPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const LegalApprovalESignatureSignOffPage = stitchLazy('LegalApprovalESignatureSignOffPage')
+export const LegalApprovalAutomatedRemindersPage = stitchLazyFrom('LegalApprovalAutomatedRemindersPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const LegalApprovalMultiPartySigningPage = stitchLazy('LegalApprovalMultiPartySigningPage')
+export const LegalApprovalESignatureSignOffPage = stitchLazyFrom('LegalApprovalESignatureSignOffPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const LegalVarianceReportsDashboardPage = stitchLazy('LegalVarianceReportsDashboardPage')
+export const LegalApprovalMultiPartySigningPage = stitchLazyFrom('LegalApprovalMultiPartySigningPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const LiveCampaignDeploymentPage = stitchLazy('LiveCampaignDeploymentPage')
+export const LegalVarianceReportsDashboardPage = stitchLazyFrom('LegalVarianceReportsDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const LiveCampaignPerformanceDashboardPage = stitchLazy('LiveCampaignPerformanceDashboardPage')
+export const LiveCampaignDeploymentPage = stitchLazyFrom('LiveCampaignDeploymentPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const MarketingAnalyticsRoiDashboardPage = stitchLazy('MarketingAnalyticsRoiDashboardPage')
+export const LiveCampaignPerformanceDashboardPage = stitchLazyFrom('LiveCampaignPerformanceDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const NetworkHealthMonitorPage = stitchLazy('NetworkHealthMonitorPage')
+export const MarketingAnalyticsRoiDashboardPage = stitchLazyFrom('MarketingAnalyticsRoiDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const OmnichannelRetargetingSmsEmailPage = stitchLazy('OmnichannelRetargetingSmsEmailPage')
+export const NetworkHealthMonitorPage = stitchLazyFrom('NetworkHealthMonitorPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const PerformanceComparisonMomPage = stitchLazy('PerformanceComparisonMomPage')
+export const OmnichannelRetargetingSmsEmailPage = stitchLazyFrom('OmnichannelRetargetingSmsEmailPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const PredictiveDisputeModelingDashboardPage = stitchLazy('PredictiveDisputeModelingDashboardPage')
+export const PerformanceComparisonMomPage = stitchLazyFrom('PerformanceComparisonMomPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const PredictivePayoutTrackingDashboardPage = stitchLazy('PredictivePayoutTrackingDashboardPage')
+export const PredictiveDisputeModelingDashboardPage = stitchLazyFrom('PredictiveDisputeModelingDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const ProjectArchivePage = stitchLazy('ProjectArchivePage')
+export const PredictivePayoutTrackingDashboardPage = stitchLazyFrom('PredictivePayoutTrackingDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const ProjectArchiveBatchActions1Page = stitchLazy('ProjectArchiveBatchActions1Page')
+export const ProjectArchivePage = stitchLazyFrom('ProjectArchivePage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const ProjectArchiveBatchActions2Page = stitchLazy('ProjectArchiveBatchActions2Page')
+export const ProjectArchiveBatchActions1Page = stitchLazyFrom('ProjectArchiveBatchActions1Page', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const ProjectArchiveFilterBySocialNetworkPage = stitchLazy('ProjectArchiveFilterBySocialNetworkPage')
+export const ProjectArchiveBatchActions2Page = stitchLazyFrom('ProjectArchiveBatchActions2Page', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const ProjectArchiveTrashRestorePage = stitchLazy('ProjectArchiveTrashRestorePage')
+export const ProjectArchiveFilterBySocialNetworkPage = stitchLazyFrom('ProjectArchiveFilterBySocialNetworkPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const RealTimeIntrusionPreventionDashboardPage = stitchLazy('RealTimeIntrusionPreventionDashboardPage')
+export const ProjectArchiveTrashRestorePage = stitchLazyFrom('ProjectArchiveTrashRestorePage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const RegionSpecificComplianceSettingsPage = stitchLazy('RegionSpecificComplianceSettingsPage')
+export const RealTimeIntrusionPreventionDashboardPage = stitchLazyFrom('RealTimeIntrusionPreventionDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const RegionalComplianceHeatmapsPage = stitchLazy('RegionalComplianceHeatmapsPage')
+export const RegionSpecificComplianceSettingsPage = stitchLazyFrom('RegionSpecificComplianceSettingsPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const RegionalLegalTemplateManagementPage = stitchLazy('RegionalLegalTemplateManagementPage')
+export const RegionalComplianceHeatmapsPage = stitchLazyFrom('RegionalComplianceHeatmapsPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const RegistrationGuideBotPage = stitchLazy('RegistrationGuideBotPage')
+export const RegionalLegalTemplateManagementPage = stitchLazyFrom('RegionalLegalTemplateManagementPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const ReinvestmentHistoryLogsPage = stitchLazy('ReinvestmentHistoryLogsPage')
+export const RegistrationGuideBotPage = stitchLazyFrom('RegistrationGuideBotPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const RemediationAbTestingDashboardPage = stitchLazy('RemediationAbTestingDashboardPage')
+export const ReinvestmentHistoryLogsPage = stitchLazyFrom('ReinvestmentHistoryLogsPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const RuleLogicAbTestingSimulationStitchPage = stitchLazy('RuleLogicAbTestingSimulationStitchPage')
+export const RemediationAbTestingDashboardPage = stitchLazyFrom('RemediationAbTestingDashboardPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const RulePerformanceComparisonPage = stitchLazy('RulePerformanceComparisonPage')
+export const RuleLogicAbTestingSimulationStitchPage = stitchLazyFrom('RuleLogicAbTestingSimulationStitchPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const SentinelAiAccessControlPage = stitchLazy('SentinelAiAccessControlPage')
+export const RulePerformanceComparisonPage = stitchLazyFrom('RulePerformanceComparisonPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const SentinelAiSecurityMonitorPage = stitchLazy('SentinelAiSecurityMonitorPage')
+export const SentinelAiAccessControlPage = stitchLazyFrom('SentinelAiAccessControlPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const SetupAssistantPage = stitchLazy('SetupAssistantPage')
+export const SentinelAiSecurityMonitorPage = stitchLazyFrom('SentinelAiSecurityMonitorPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const SheinTrendReportAiInsightsPage = stitchLazy('SheinTrendReportAiInsightsPage')
+export const SetupAssistantPage = stitchLazyFrom('SetupAssistantPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const SignedDocumentArchivePage = stitchLazy('SignedDocumentArchivePage')
+export const SheinTrendReportAiInsightsPage = stitchLazyFrom('SheinTrendReportAiInsightsPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const SignedDocumentArchiveExpirationAlertsPage = stitchLazy('SignedDocumentArchiveExpirationAlertsPage')
+export const SignedDocumentArchivePage = stitchLazyFrom('SignedDocumentArchivePage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const SmsPersonalizationSettings1Page = stitchLazy('SmsPersonalizationSettings1Page')
+export const SignedDocumentArchiveExpirationAlertsPage = stitchLazyFrom('SignedDocumentArchiveExpirationAlertsPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const SmsPersonalizationSettings2Page = stitchLazy('SmsPersonalizationSettings2Page')
+export const SmsPersonalizationSettings1Page = stitchLazyFrom('SmsPersonalizationSettings1Page', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const SocialMediaTrendScannerReportPage = stitchLazy('SocialMediaTrendScannerReportPage')
+export const SmsPersonalizationSettings2Page = stitchLazyFrom('SmsPersonalizationSettings2Page', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const StoryPreviewFacebookInstagramSharing1Page = stitchLazy('StoryPreviewFacebookInstagramSharing1Page')
+export const SocialMediaTrendScannerReportPage = stitchLazyFrom('SocialMediaTrendScannerReportPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const StoryPreviewFacebookInstagramSharing2Page = stitchLazy('StoryPreviewFacebookInstagramSharing2Page')
+export const StoryPreviewFacebookInstagramSharing1Page = stitchLazyFrom('StoryPreviewFacebookInstagramSharing1Page', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const StoryPreviewFormatResolutionSettingsPage = stitchLazy('StoryPreviewFormatResolutionSettingsPage')
+export const StoryPreviewFacebookInstagramSharing2Page = stitchLazyFrom('StoryPreviewFacebookInstagramSharing2Page', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const StoryPreviewFullSocialSharingYoutubePage = stitchLazy('StoryPreviewFullSocialSharingYoutubePage')
+export const StoryPreviewFormatResolutionSettingsPage = stitchLazyFrom('StoryPreviewFormatResolutionSettingsPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const StoryPreviewInstagramSharingPage = stitchLazy('StoryPreviewInstagramSharingPage')
+export const StoryPreviewFullSocialSharingYoutubePage = stitchLazyFrom('StoryPreviewFullSocialSharingYoutubePage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const StoryPreviewResolutionSettingsPage = stitchLazy('StoryPreviewResolutionSettingsPage')
+export const StoryPreviewInstagramSharingPage = stitchLazyFrom('StoryPreviewInstagramSharingPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const StoryPreviewSocialAnalyticsSummaryPage = stitchLazy('StoryPreviewSocialAnalyticsSummaryPage')
+export const StoryPreviewResolutionSettingsPage = stitchLazyFrom('StoryPreviewResolutionSettingsPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const StorySequencePreviewPage = stitchLazy('StorySequencePreviewPage')
+export const StoryPreviewSocialAnalyticsSummaryPage = stitchLazyFrom('StoryPreviewSocialAnalyticsSummaryPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const StorySequencePreviewWithExportPage = stitchLazy('StorySequencePreviewWithExportPage')
+export const StorySequencePreviewPage = stitchLazyFrom('StorySequencePreviewPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const StoryboardEditorPage = stitchLazy('StoryboardEditorPage')
+export const StorySequencePreviewWithExportPage = stitchLazyFrom('StorySequencePreviewWithExportPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const StoryboardEditorTransitionsPage = stitchLazy('StoryboardEditorTransitionsPage')
+export const StoryboardEditorPage = stitchLazyFrom('StoryboardEditorPage', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const TemuTrendReportAiInsightsPage = stitchLazy('TemuTrendReportAiInsightsPage')
+export const StoryboardEditorTransitionsPage = stitchLazyFrom('StoryboardEditorTransitionsPage', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const TiktokPerformanceIntelligenceReportPage = stitchLazy('TiktokPerformanceIntelligenceReportPage')
+export const TemuTrendReportAiInsightsPage = stitchLazyFrom('TemuTrendReportAiInsightsPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
 
-export const UpdatedSetupAssistantPage = stitchLazy('UpdatedSetupAssistantPage')
+export const TiktokPerformanceIntelligenceReportPage = stitchLazyFrom('TiktokPerformanceIntelligenceReportPage', () => import('../../pages/stitch/chunks/stitchChunk2'))
 
-export const UserRegistrationPage = stitchLazy('UserRegistrationPage')
+export const UpdatedSetupAssistantPage = stitchLazyFrom('UpdatedSetupAssistantPage', () => import('../../pages/stitch/chunks/stitchChunk3'))
 
-export const UserSettingsAccountConnections1Page = stitchLazy('UserSettingsAccountConnections1Page')
+export const UserRegistrationPage = stitchLazyFrom('UserRegistrationPage', () => import('../../pages/stitch/chunks/stitchChunk4'))
 
-export const UserSettingsAccountConnections2Page = stitchLazy('UserSettingsAccountConnections2Page')
+export const UserSettingsAccountConnections1Page = stitchLazyFrom('UserSettingsAccountConnections1Page', () => import('../../pages/stitch/chunks/stitchChunk5'))
 
-export const VoiceLibraryPage = stitchLazy('VoiceLibraryPage')
+export const UserSettingsAccountConnections2Page = stitchLazyFrom('UserSettingsAccountConnections2Page', () => import('../../pages/stitch/chunks/stitchChunk0'))
 
-export const YoutubePerformanceIntelligenceReportPage = stitchLazy('YoutubePerformanceIntelligenceReportPage')
+export const VoiceLibraryPage = stitchLazyFrom('VoiceLibraryPage', () => import('../../pages/stitch/chunks/stitchChunk1'))
+
+export const YoutubePerformanceIntelligenceReportPage = stitchLazyFrom('YoutubePerformanceIntelligenceReportPage', () => import('../../pages/stitch/chunks/stitchChunk2'))

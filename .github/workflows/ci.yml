@@ -24,3 +24,20 @@ jobs:
         run: npm run verify
       - name: Build api + web
         run: npm run build
+      - name: Start BFF and smoke
+        shell: bash
+        run: |
+          set -e
+          npm run start -w yuhan-suite-api &
+          BFFPID=$!
+          for i in $(seq 1 45); do
+            if curl -sf http://127.0.0.1:8787/health >/dev/null 2>&1; then
+              echo "BFF ready"
+              break
+            fi
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:8787/health >/dev/null
+          npm run smoke:bff
+          kill $BFFPID 2>/dev/null || true
+          wait $BFFPID 2>/dev/null || true
