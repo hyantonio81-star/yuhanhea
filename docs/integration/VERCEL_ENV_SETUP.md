@@ -2,7 +2,18 @@
 
 저장소: [hyantonio81-star/yuhanhea](https://github.com/hyantonio81-star/yuhanhea) 기준. SPA는 `apps/web`, BFF는 **별도 호스팅**입니다 ([DEPLOY_SUPABASE_VERCEL.md](./DEPLOY_SUPABASE_VERCEL.md)).
 
-**Vercel Project ID (웹·`yuhanhea-web` 등):** `prj_LIizNkl3vRlthA0ifGZyJlfsYIXM` — 팀/프로젝트가 여러 개일 때 대시보드·지원 요청에서 구분용으로 사용합니다. 토큰·시크릿이 아닙니다.
+**프로덕션 웹 프로젝트:** 팀 `hyantonio81-stars-projects` · 이름 **`yuhanhea-web`** · Project ID `prj_LIizNkl3vRlthA0ifGZyJlfsYIXM` · Team ID `team_aCjAaszaGiTD9WCNfVriVHsP` (대시보드·CLI 구분용이며 배포 토큰과는 무관합니다.)
+
+### 로컬 Vercel CLI
+
+저장소 루트에 [`.vercel/project.json`](../../.vercel/project.json)을 두어 같은 프로젝트에 링크해 두었습니다. 새 머신에서는 `npx vercel@latest login` 후 `npm run vercel:link` 한 번이면 동일 링크를 복구할 수 있습니다.
+
+| 스크립트 | 설명 |
+|----------|------|
+| `npm run vercel:link` | 비대화형으로 `yuhanhea-web`에 링크 |
+| `npm run vercel:env` | 대시보드 환경 변수를 로컬 파일로 받기 (`vercel env pull`) |
+| `npm run vercel:deploy` | 프리뷰 배포 |
+| `npm run vercel:deploy:prod` | 프로덕션 배포 (`--prod`) |
 
 ## 1. Vercel 프로젝트 연결
 

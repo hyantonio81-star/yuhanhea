@@ -15,3 +15,7 @@ Thumbs.db
 **/tsconfig.tsbuildinfo
 apps/web/test-results/
 playwright-report/
+
+# Vercel CLI: 링크 메타만 공유 (README 등은 제외)
+.vercel/*
+!.vercel/project.json

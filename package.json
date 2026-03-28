@@ -12,7 +12,11 @@
     "webhook:stub": "node scripts/webhook-stub.mjs",
     "export:audit": "npm run export-audit -w yuhan-suite-api",
     "security:check": "node scripts/security-check.mjs",
-    "e2e": "npm run e2e -w web"
+    "e2e": "npm run e2e -w web",
+    "vercel:link": "npx vercel@latest link --yes --team team_aCjAaszaGiTD9WCNfVriVHsP --project yuhanhea-web",
+    "vercel:env": "npx vercel@latest env pull",
+    "vercel:deploy": "npx vercel@latest deploy",
+    "vercel:deploy:prod": "npx vercel@latest deploy --prod"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
